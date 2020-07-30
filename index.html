@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>Rock, Paper, Scissors</h1>
+            </div>
+            <div class="player stats">
+                <h2>Player</h2>
+                <p id="player_score">Score: </p>
+                <p id="choice"></p>
+            </div>
+            <div class="results">
+                <p id="result"></p>
+            </div>"
+            <div class="computer stats">
+                <h2>Computer</h2>
+                <p id="comp_score">Score: </p>
+                <p id="computer"></p>
+            </div>
+            <div class="footer">
+                <div class="buttons">
+                    <button id="rock" class="game-btn">Rock</button>
+                    <button id="paper" class="game-btn">Paper</button>
+                    <button id="scissors" class="game-btn">Scissors</button>
+                </div>
+                <p>Click a button to play the computer</p>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            const winConditions = new Map();
+            winConditions.set("rock", "paper");
+            winConditions.set("paper", "scissors");
+            winConditions.set("scissors", "rock");
+
+            let pScore = 0;
+            let cScore = 0;
+
+            const computerPlay = () => {
+                const choice = Math.floor(Math.random() * 3);
+                switch(choice) {
+                    case 0:
+                        return "rock";
+                    case 1: 
+                        return "paper";
+                    case 2:
+                        return "scissors";
+                }
+            };
+
+            function playRound() {
+                pChoice = this.id;
+                computerChoice = computerPlay();
+                computer.innerHTML = "The computer chose: "+computerChoice;
+                player_choice.innerHTML = "You chose: "+this.id;
+                if (winConditions.get(computerChoice) == pChoice) {
+                    // win
+                    result.innerHTML = "You won!"
+                    player_score.innerHTML = "Score: " + ++pScore;
+                } else if (computerChoice == pChoice) {
+                    // draw
+                    result.innerHTML = "It's a draw."
+
+                } else {
+                    // lose
+                    result.innerHTML = "You lost :("
+                    comp_score.innerHTML = "Score: " + ++cScore;
+                }
+                if (pScore == 5){
+                    result.innerHTML = "You got to 5 first, congrats!"
+                } else if (cScore == 5) {
+                    result.innerHTML = "The computer got to 5 first, sorry!"
+                }
+            };
+
+            let player_choice = document.getElementById("choice");
+
+            const rock = document.getElementById("rock");
+            const paper = document.getElementById("paper");
+            const scissors = document.getElementById("scissors");
+
+            rock.addEventListener("click", playRound);
+            paper.addEventListener("click", playRound);
+            scissors.addEventListener("click", playRound);
+
+        </script>
+    </body>
+</html>
